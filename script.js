@@ -43,8 +43,10 @@ var TREE = {
 
     this.context.restore();
 
-    this.leftAngle(props, order);
-    this.rightAngle(props, order);
+    window.setTimeout(function() {
+      this.leftAngle(props, order);
+      this.rightAngle(props, order);
+    }.bind(this), 1000);
   },
 
   leftAngle: function(props, order) {
