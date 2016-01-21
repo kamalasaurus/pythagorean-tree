@@ -43,10 +43,12 @@ var TREE = {
 
     this.context.restore();
 
-    window.setTimeout(function() {
-      this.leftAngle(props, order);
-      this.rightAngle(props, order);
-    }.bind(this), 1000);
+    if (order < MAXORDER) {
+      window.setTimeout(function() {
+        this.leftAngle(props, order);
+        this.rightAngle(props, order);
+      }.bind(this), 850);
+    }
   },
 
   leftAngle: function(props, order) {
@@ -56,20 +58,18 @@ var TREE = {
     // x translation due to the y translation given trignometry.  You really have to
     // think about those diagrams.
 
-    if (order < MAXORDER) {
-      var newlength = props.length * Math.sqrt(2)/2;
-      var vec = props.length/2;
-      var Θ = props.angle;
+    var newlength = props.length * Math.sqrt(2)/2;
+    var vec = props.length/2;
+    var Θ = props.angle;
 
-      var newprops = {
-        x: props.x - (vec*Math.cos(Θ) + -vec*Math.sin(Θ)),
-        y: props.y - (vec*Math.sin(Θ) + vec*Math.cos(Θ)),
-        length: newlength,
-        angle: props.angle - Math.PI/4
-      };
+    var newprops = {
+      x: props.x - (vec*Math.cos(Θ) + -vec*Math.sin(Θ)),
+      y: props.y - (vec*Math.sin(Θ) + vec*Math.cos(Θ)),
+      length: newlength,
+      angle: props.angle - Math.PI/4
+    };
 
-      this.draw(newprops, ++order);
-    }
+    this.draw(newprops, ++order);
   },
 
   rightAngle: function(props, order) {
@@ -79,21 +79,19 @@ var TREE = {
     // at the terminal branches, if you apply both terminal patterns simultaneously to every node the
     // fractal forms.
 
-    if (order < MAXORDER) {
-      var newlength = props.length * Math.sqrt(2)/2;
-      var xvec = props.length;
-      var yvec = newlength * Math.sqrt(2);
-      var Θ = props.angle;
+    var newlength = props.length * Math.sqrt(2)/2;
+    var xvec = props.length;
+    var yvec = newlength * Math.sqrt(2);
+    var Θ = props.angle;
 
-      var newprops = {
-        x: props.x + (xvec*Math.cos(Θ) + yvec*Math.sin(Θ)),
-        y: props.y - (-xvec*Math.sin(Θ) + yvec*Math.cos(Θ)),
-        length: newlength,
-        angle: props.angle + Math.PI/4
-      };
+    var newprops = {
+      x: props.x + (xvec*Math.cos(Θ) + yvec*Math.sin(Θ)),
+      y: props.y - (-xvec*Math.sin(Θ) + yvec*Math.cos(Θ)),
+      length: newlength,
+      angle: props.angle + Math.PI/4
+    };
 
-      this.draw(newprops, ++order);
-    }
+    this.draw(newprops, ++order);
   },
 
   getColor: function(order) {
